@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización de Cargas - DUNAMIS SA</title>
+    <link rel="stylesheet" href="/CSS/cargas.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Cotización de Cargas</h1>
+        <a href="menu.html" class="button small">Menu Inicio</a>
+    </header>
+    <main class="main-content">
+        <form class="quote-form">
+            <div class="form-group">
+                <label for="tipo_carga">Seleccione el Tipo de Carga</label>
+                <select id="tipo_carga" name="tipo_carga" required>
+                    <option value="">Seleccione...</option>
+                    <option value="fabril">Carga Fabril</option>
+                    <option value="perecedera">Carga Perecedera</option>
+                    <option value="liviana">Carga Liviana</option>
+                    <option value="pesada">Carga Pesada</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_cliente">ID Cliente</label>
+                <input type="text" id="id_cliente" name="id_cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="numero_factura">Número de Factura</label>
+                <input type="text" id="numero_factura" name="numero_factura" required>
+            </div>
+            <div class="form-group">
+                <label for="peso_carga">Peso de Carga (kg)</label>
+                <input type="number" id="peso_carga" name="peso_carga" required>
+            </div>
+            <div class="form-group">
+                <label for="descuento">Descuento (%)</label>
+                <input type="number" id="descuento" name="descuento" required>
+            </div>
+            <div class="form-group">
+                <label for="impuestos">Impuestos (11%)</label>
+                <input type="number" id="impuestos" name="impuestos" value="11" readonly>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button">Agregar</button>
+            </div>
+        </form>
+        <section class="note">
+            <h2>Nota</h2>
+            <p>La carga fabril corresponde a cargas como cristalería, equipo electrónico, etc, la cual tiene un costo de ¢500 por kilo.</p>
+            <p>La carga perecedera corresponde a cargas como frutas, verduras, etc, la cual tiene un costo de ¢300 por kilo.</p>
+            <p>La carga liviana corresponde a cargas como ropa, etc, la cual tiene un costo de ¢200 por kilo.</p>
+            <p>La carga pesada corresponde a cargas como maquinaria agrícola, etc, la cual tiene un costo de ¢100 por kilo.</p>
+        </section>
+    </main>
+</body>
+</html>

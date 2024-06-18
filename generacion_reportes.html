@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generación de Reportes - DUNAMIS SA</title>
+    <link rel="stylesheet" href="/CSS/reportes.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Generación de Reportes</h1>
+        <a href="menu.html" class="button small">Menu Inicio</a>
+    </header>
+    <main class="main-content">
+        <div class="report-actions">
+            <button class="action-button" onclick="downloadExcel()"><i class="fa fa-file-excel"></i> Descargar Excel</button>
+            <button class="action-button" onclick="downloadPDF()"><i class="fa fa-file-pdf"></i> Descargar PDF</button>
+            <input type="text" placeholder="Buscar..." class="search-box">
+        </div>
+        <div class="report-selector">
+            <label for="report-type">Seleccione el tipo de reporte:</label>
+            <select id="report-type" name="report-type" onchange="loadReport()">
+                <option value="">Seleccione...</option>
+                <option value="tarifas">Reporte de tarifas por tipo de carga</option>
+                <option value="facturacion">Reporte de facturación mensual</option>
+                <option value="descuentos">Reporte de descuentos aplicados</option>
+                <option value="impuestos">Reporte de impuestos calculados</option>
+                <option value="ingresos">Reporte de ingresos totales</option>
+                <option value="cargas">Reporte de cargas transportadas por mes</option>
+                <option value="clientes">Reporte de clientes frecuentes</option>
+                <option value="rendimiento">Reporte de rendimiento de usuarios</option>
+                <option value="errores">Reporte de errores del sistema</option>
+                <option value="actividades">Reporte de actividades del sistema</option>
+            </select>
+        </div>
+        <table class="report-table" id="report-table">
+            <thead>
+                <tr>
+                    <th>Columna 1</th>
+                    <th>Columna 2</th>
+                    <th>Columna 3</th>
+                    <th>Columna 4</th>
+                    <th>Columna 5</th>
+                    <th>Columna 6</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí van los datos de los reportes -->
+            </tbody>
+        </table>
+    </main>
+    <script src="/JS/reportes.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creación de Factura - DUNAMIS SA</title>
+    <link rel="stylesheet" href="/CSS/cargas.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Creación de Factura</h1>
+        <a href="menu.html" class="button small">Menu Inicio</a>
+    </header>
+    <main class="main-content">
+        <form class="invoice-form">
+            <div class="form-group">
+                <label for="numero_factura">Número de Factura</label>
+                <input type="text" id="numero_factura" name="numero_factura" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-group">
+                <label for="cliente">Cliente</label>
+                <input type="text" id="cliente" name="cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="tipo_carga">Tipo de Carga</label>
+                <select id="tipo_carga" name="tipo_carga" required>
+                    <option value="">Seleccione...</option>
+                    <option value="fabril">Carga Fabril</option>
+                    <option value="perecedera">Carga Perecedera</option>
+                    <option value="liviana">Carga Liviana</option>
+                    <option value="pesada">Carga Pesada</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="peso">Peso (kg)</label>
+                <input type="number" id="peso" name="peso" required>
+            </div>
+            <div class="form-group">
+                <label for="tarifa">Tarifa (¢/kg)</label>
+                <input type="number" id="tarifa" name="tarifa" required>
+            </div>
+            <div class="form-group">
+                <label for="descuento">Descuento (%)</label>
+                <input type="number" id="descuento" name="descuento">
+            </div>
+            <div class="form-group">
+                <label for="impuestos">Impuestos (11%)</label>
+                <input type="number" id="impuestos" name="impuestos" value="11" readonly>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button">Generar Factura</button>
+                <button type="reset" class="button">Limpiar</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
