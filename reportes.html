@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Reportes - DUNAMIS SA</title>
+    <link rel="stylesheet" href="~/css/Styles.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>Administrar Reportes</h1>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <h3>Generar Reporte</h3>
+            <form id="reportesForm" method="post" asp-action="GenerarReporte">
+                <label for="TipoReporte">Seleccione Tipo de Reporte:</label>
+                <select id="TipoReporte" name="TipoReporte" class="form-control">
+                    <option value="1">Reporte 1</option>
+                    <option value="2">Reporte 2</option>
+                    <option value="3">Reporte 3</option>
+                    <!-- Agregar más opciones según sea necesario -->
+                </select>
+                <button type="submit" class="btn btn-primary mt-2">Generar Reporte</button>
+            </form>
+            <div id="reporteResultado" class="mt-3">
+                @if (ViewBag.ReporteResultado != null)
+                {
+                    <div>@ViewBag.ReporteResultado</div>
+                }
+            </div>
+        </div>
+    </main>
+</body>
+</html>

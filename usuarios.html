@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Usuarios - DUNAMIS SA</title>
+    <link rel="stylesheet" href="css/usuarios.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>Administrar Usuarios</h1>
+    </header>
+    <main class="main-content">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Juan Pérez</td>
+                    <td>juan.perez@example.com</td>
+                    <td>Administrador</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="1">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteUsuario(1)">Eliminar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>María Gómez</td>
+                    <td>maria.gomez@example.com</td>
+                    <td>Empleado</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="2">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteUsuario(2)">Eliminar</button>
+                    </td>
+                </tr>
+                <!-- Agrega más filas aquí según sea necesario -->
+            </tbody>
+        </table>
+        <button class="btn btn-success" data-toggle="modal" data-target="#editModal">Agregar Nuevo Usuario</button>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Agregar/Editar Usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="usuarioForm">
+                            <input type="hidden" id="UsuarioID" name="UsuarioID" />
+                            <div class="form-group">
+                                <label for="Nombre">Nombre</label>
+                                <input type="text" class="form-control" id="Nombre" name="Nombre" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="Correo">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="Correo" name="Correo" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="Contrasena">Contraseña</label>
+                                <input type="password" class="form-control" id="Contrasena" name="Contrasena" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="RolID">Rol</label>
+                                <select class="form-control" id="RolID" name="RolID" required>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Empleado</option>
+                                    <!-- Agrega más opciones aquí según sea necesario -->
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        $('#editModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            if (id) {
+                // Simulando la obtención de datos
+                var data = {
+                    UsuarioID: id,
+                    Nombre: id === 1 ? 'Juan Pérez' : 'María Gómez',
+                    Correo: id === 1 ? 'juan.perez@example.com' : 'maria.gomez@example.com',
+                    Contrasena: 'password', // Solo para la demostración
+                    RolID: id === 1 ? 1 : 2
+                };
+                modal.find('#UsuarioID').val(data.UsuarioID);
+                modal.find('#Nombre').val(data.Nombre);
+                modal.find('#Correo').val(data.Correo);
+                modal.find('#Contrasena').val(data.Contrasena);
+                modal.find('#RolID').val(data.RolID);
+            } else {
+                modal.find('form')[0].reset();
+            }
+        });
+
+        function deleteUsuario(id) {
+            if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
+                // Simulando la eliminación de datos
+                alert('Usuario ' + id + ' eliminado');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

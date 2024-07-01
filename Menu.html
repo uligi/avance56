@@ -4,22 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu de Inicio - DUNAMIS SA</title>
-    <link rel="stylesheet" href="/CSS/Styles.css">
+    <link rel="stylesheet" href="/CSS/menu.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <header class="header">
-        <h1>Menu de inicio</h1>
-        <a href="index.html" class="button small">Menu inicio</a>
+        <h1>Panel</h1>
     </header>
     <main class="main-content">
-        <div class="menu">
-            <a href="/cotizacion_cargas.html" class="menu-item">Cotizar Carga</a>
-            <a href="/creacion_factura.html" class="menu-item">Creacion de Factura</a>
-            <a href="/generacion_reportes.html" class="menu-item">Reportes</a>
-            <a href="/mantenimientos.html" class="menu-item">Mantenimiento</a>
-            <a href="/historial_transacciones.html" class="menu-item">Historial Transacciones</a>
-            <a href="/registrar_cliente.html" class="menu-item">Registrar Cliente</a>
+        <div class="container">
+            <h2>Bienvenido</h2>
+            <div class="list-group" id="menuList">
+                <!-- Links will be inserted here based on the user role -->
+            </div>
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const role = urlParams.get('role');
+            const menuList = document.getElementById('menuList');
+
+            if (role === 'admin') {
+                
+                menuList.innerHTML += '<a href="/roles.html" class="list-group-item list-group-item-action admin-item">Administrar Roles</a>';
+                menuList.innerHTML += '<a href="/usuarios.html" class="list-group-item list-group-item-action admin-item">Administrar Usuarios</a>';
+                menuList.innerHTML += '<a href="/descuentos.html" class="list-group-item list-group-item-action admin-item">Administrar Descuentos</a>';
+                menuList.innerHTML += '<a href="/impuestos.html" class="list-group-item list-group-item-action admin-item">Administrar Impuestos</a>';
+                menuList.innerHTML += '<a href="/TiposCargas.html" class="list-group-item list-group-item-action admin-item">Administrar Tipos de cargas</a>';
+            }
+
+            if (role === 'empleado' || role === 'admin') {
+                menuList.innerHTML += '<a href="/clientes.html" class="list-group-item list-group-item-action">Administrar Clientes</a>';
+                menuList.innerHTML += '<a href="/cargas.html" class="list-group-item list-group-item-action admin-item">Administrar Cargas</a>';
+                menuList.innerHTML += '<a href="/facturas.html" class="list-group-item list-group-item-action">Administrar Facturas</a>';
+                menuList.innerHTML += '<a href="/pagos.html" class="list-group-item list-group-item-action">Administrar Pagos</a>';
+                menuList.innerHTML += '<a href="/reportes.html" class="list-group-item list-group-item-action">Administrar Reportes</a>';
+            }
+        });
+    </script>
 </body>
 </html>

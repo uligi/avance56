@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Impuestos - DUNAMIS SA</title>
+    <link rel="stylesheet" href="css/impuestos.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>Administrar Impuestos</h1>
+    </header>
+    <main class="main-content">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Porcentaje</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Impuesto General</td>
+                    <td>13%</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="1">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteImpuesto(1)">Eliminar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Impuesto Reducido</td>
+                    <td>11%</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="2">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteImpuesto(2)">Eliminar</button>
+                    </td>
+                </tr>
+                <!-- Agrega más filas aquí según sea necesario -->
+            </tbody>
+        </table>
+        <button class="btn btn-success" data-toggle="modal" data-target="#editModal">Agregar Nuevo Impuesto</button>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Agregar/Editar Impuesto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="impuestoForm">
+                            <input type="hidden" id="ImpuestoID" name="ImpuestoID" />
+                            <div class="form-group">
+                                <label for="Descripcion">Descripción</label>
+                                <input type="text" class="form-control" id="Descripcion" name="Descripcion" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="Porcentaje">Porcentaje</label>
+                                <input type="number" class="form-control" id="Porcentaje" name="Porcentaje" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        $('#editModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            if (id) {
+                // Simulando la obtención de datos
+                var data = {
+                    ImpuestoID: id,
+                    Descripcion: id === 1 ? 'Impuesto General' : 'Impuesto Reducido',
+                    Porcentaje: id === 1 ? 13 : 5
+                };
+                modal.find('#ImpuestoID').val(data.ImpuestoID);
+                modal.find('#Descripcion').val(data.Descripcion);
+                modal.find('#Porcentaje').val(data.Porcentaje);
+            } else {
+                modal.find('form')[0].reset();
+            }
+        });
+
+        function deleteImpuesto(id) {
+            if (confirm('¿Está seguro de que desea eliminar este impuesto?')) {
+                // Simulando la eliminación de datos
+                alert('Impuesto ' + id + ' eliminado');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

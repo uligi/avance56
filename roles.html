@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Roles - DUNAMIS SA</title>
+    <link rel="stylesheet" href="css/roles.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>Administrar Roles</h1>
+    </header>
+    <main class="main-content">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Administrador</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="1">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteRol(1)">Eliminar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Empleado</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="2">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteRol(2)">Eliminar</button>
+                    </td>
+                </tr>
+                <!-- Agrega más filas aquí según sea necesario -->
+            </tbody>
+        </table>
+        <button class="btn btn-success" data-toggle="modal" data-target="#editModal">Agregar Nuevo Rol</button>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Agregar/Editar Rol</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="rolForm">
+                            <input type="hidden" id="RolID" name="RolID" />
+                            <div class="form-group">
+                                <label for="Descripcion">Descripción</label>
+                                <input type="text" class="form-control" id="Descripcion" name="Descripcion" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        $('#editModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            if (id) {
+                // Simulando la obtención de datos
+                var data = {
+                    RolID: id,
+                    Descripcion: id === 1 ? 'Administrador' : 'Empleado'
+                };
+                modal.find('#RolID').val(data.RolID);
+                modal.find('#Descripcion').val(data.Descripcion);
+            } else {
+                modal.find('form')[0].reset();
+            }
+        });
+
+        function deleteRol(id) {
+            if (confirm('¿Está seguro de que desea eliminar este rol?')) {
+                // Simulando la eliminación de datos
+                alert('Rol ' + id + ' eliminado');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
