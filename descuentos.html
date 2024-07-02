@@ -6,8 +6,8 @@
     <title>Administrar Descuentos - DUNAMIS SA</title>
     <link rel="stylesheet" href="css/descuentos.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/js/jquery.min.js"></script>
+    <script src="js/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -23,7 +23,7 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="descuentoTableBody">
                 <tr>
                     <td>1</td>
                     <td>Descuento del 5%</td>
@@ -45,7 +45,7 @@
                 <!-- Agrega más filas aquí según sea necesario -->
             </tbody>
         </table>
-        <button class="btn btn-success" data-toggle="modal" data-target="#editModal">Agregar Nuevo Descuento</button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#editModal" onclick="showAddModal()">Agregar Nuevo Descuento</button>
 
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -57,7 +57,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="descuentoForm">
+                        <form id="descuentoForm" onsubmit="saveDescuento(event)">
                             <input type="hidden" id="DescuentoID" name="DescuentoID" />
                             <div class="form-group">
                                 <label for="Descripcion">Descripción</label>
@@ -74,33 +74,6 @@
             </div>
         </div>
     </main>
-    <script>
-        $('#editModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var modal = $(this);
-            if (id) {
-                // Simulando la obtención de datos
-                var data = {
-                    DescuentoID: id,
-                    Descripcion: id === 1 ? 'Descuento del 5%' : 'Descuento del 10%',
-                    Porcentaje: id === 1 ? 5 : 10
-                };
-                modal.find('#DescuentoID').val(data.DescuentoID);
-                modal.find('#Descripcion').val(data.Descripcion);
-                modal.find('#Porcentaje').val(data.Porcentaje);
-            } else {
-                modal.find('form')[0].reset();
-            }
-        });
-
-        function deleteDescuento(id) {
-            if (confirm('¿Está seguro de que desea eliminar este descuento?')) {
-                // Simulando la eliminación de datos
-                alert('Descuento ' + id + ' eliminado');
-                location.reload();
-            }
-        }
-    </script>
+    <script src="js/descuentos.js"></script>
 </body>
 </html>

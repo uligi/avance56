@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/facturas.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/js/bootstrap.bundle.min.js"></script>
+    <script src="js/facturas.js" defer></script>
 </head>
 <body>
     <header class="header">
@@ -31,7 +32,7 @@
                     <td>2024-07-01</td>
                     <td>150000</td>
                     <td>
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="1">Editar</button>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="1">Editar</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteFactura(1)">Eliminar</button>
                     </td>
                 </tr>
@@ -41,26 +42,24 @@
                     <td>2024-07-01</td>
                     <td>200000</td>
                     <td>
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="2">Editar</button>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="2">Editar</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteFactura(2)">Eliminar</button>
                     </td>
                 </tr>
                 <!-- Agrega más filas aquí según sea necesario -->
             </tbody>
         </table>
-        <button class="btn btn-success" data-toggle="modal" data-target="#editModal">Agregar Nueva Factura</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal">Agregar Nueva Factura</button>
 
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModalLabel">Agregar/Editar Factura</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="facturaForm">
+                        <form id="facturaForm" onsubmit="saveFactura(event)" novalidate>
                             <input type="hidden" id="FacturaID" name="FacturaID" />
                             <div class="form-group">
                                 <label for="ClienteID">Cliente</label>
@@ -69,14 +68,23 @@
                                     <option value="2">Maria Gómez</option>
                                     <!-- Agrega más opciones aquí según sea necesario -->
                                 </select>
+                                <div class="invalid-feedback">
+                                    Selecciona un cliente.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="Fecha">Fecha</label>
                                 <input type="date" class="form-control" id="Fecha" name="Fecha" required />
+                                <div class="invalid-feedback">
+                                    Completa este campo con una fecha válida.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="Total">Total</label>
-                                <input type="number" class="form-control" id="Total" name="Total" required />
+                                <input type="number" class="form-control" id="Total" name="Total" required min="1" />
+                                <div class="invalid-feedback">
+                                    Completa este campo con un monto válido (mayor a 0).
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
@@ -85,35 +93,5 @@
             </div>
         </div>
     </main>
-    <script>
-        $('#editModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var modal = $(this);
-            if (id) {
-                // Simulando la obtención de datos
-                var data = {
-                    FacturaID: id,
-                    ClienteID: id === 1 ? 1 : 2,
-                    Fecha: id === 1 ? '2024-07-01' : '2024-07-01',
-                    Total: id === 1 ? 150000 : 200000
-                };
-                modal.find('#FacturaID').val(data.FacturaID);
-                modal.find('#ClienteID').val(data.ClienteID);
-                modal.find('#Fecha').val(data.Fecha);
-                modal.find('#Total').val(data.Total);
-            } else {
-                modal.find('form')[0].reset();
-            }
-        });
-
-        function deleteFactura(id) {
-            if (confirm('¿Está seguro de que desea eliminar esta factura?')) {
-                // Simulando la eliminación de datos
-                alert('Factura ' + id + ' eliminada');
-                location.reload();
-            }
-        }
-    </script>
 </body>
 </html>

@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/clientes.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/js/bootstrap.bundle.min.js"></script>
+    <script src="js/clientes.js" defer></script>
 </head>
 <body>
     <header class="header">
@@ -20,6 +21,8 @@
                     <th>ID</th>
                     <th>Cédula</th>
                     <th>Nombre</th>
+                    <th>Apellido1</th>
+                    <th>Apellido2</th>
                     <th>Tipo de Cliente</th>
                     <th>Acciones</th>
                 </tr>
@@ -28,47 +31,69 @@
                 <tr>
                     <td>1</td>
                     <td>123456789</td>
-                    <td>Juan Pérez</td>
+                    <td>Juan</td>
+                    <td>Pérez</td>
+                    <td>García</td>
                     <td>Regular</td>
                     <td>
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="1">Editar</button>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="1">Editar</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteCliente(1)">Eliminar</button>
                     </td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>987654321</td>
-                    <td>Ana Gómez</td>
+                    <td>Ana</td>
+                    <td>Gómez</td>
+                    <td>Fernández</td>
                     <td>Premium</td>
                     <td>
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="2">Editar</button>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="2">Editar</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteCliente(2)">Eliminar</button>
                     </td>
                 </tr>
                 <!-- Agrega más filas aquí según sea necesario -->
             </tbody>
         </table>
-        <button class="btn btn-success" data-toggle="modal" data-target="#editModal">Agregar Nuevo Cliente</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal" onclick="showAddModal()">Agregar Nuevo Cliente</button>
 
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModalLabel">Agregar/Editar Cliente</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="clienteForm">
+                        <form id="clienteForm" onsubmit="saveCliente(event)" novalidate>
                             <input type="hidden" id="ClienteID" name="ClienteID" />
                             <div class="form-group">
                                 <label for="Cedula">Cédula</label>
-                                <input type="text" class="form-control" id="Cedula" name="Cedula" required />
+                                <input type="text" class="form-control" id="Cedula" name="Cedula" required maxlength="10" pattern="\d{9,10}" />
+                                <div class="invalid-feedback">
+                                    Completa este campo con una cédula válida (9-10 dígitos).
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="Nombre">Nombre</label>
-                                <input type="text" class="form-control" id="Nombre" name="Nombre" required />
+                                <input type="text" class="form-control" id="Nombre" name="Nombre" required maxlength="50" />
+                                <div class="invalid-feedback">
+                                    Completa este campo (máximo 50 caracteres).
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Apellido1">Primer Apellido</label>
+                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" required maxlength="50" />
+                                <div class="invalid-feedback">
+                                    Completa este campo (máximo 50 caracteres).
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Apellido2">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" required maxlength="50" />
+                                <div class="invalid-feedback">
+                                    Completa este campo (máximo 50 caracteres).
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="TipoClienteID">Tipo de Cliente</label>
@@ -77,6 +102,9 @@
                                     <option value="2">Premium</option>
                                     <!-- Agrega más opciones según sea necesario -->
                                 </select>
+                                <div class="invalid-feedback">
+                                    Selecciona un tipo de cliente.
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
@@ -85,35 +113,5 @@
             </div>
         </div>
     </main>
-    <script>
-        $('#editModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var modal = $(this);
-            if (id) {
-                // Simulando la obtención de datos
-                var data = {
-                    ClienteID: id,
-                    Cedula: id === 1 ? '123456789' : '987654321',
-                    Nombre: id === 1 ? 'Juan Pérez' : 'Ana Gómez',
-                    TipoClienteID: id === 1 ? 1 : 2
-                };
-                modal.find('#ClienteID').val(data.ClienteID);
-                modal.find('#Cedula').val(data.Cedula);
-                modal.find('#Nombre').val(data.Nombre);
-                modal.find('#TipoClienteID').val(data.TipoClienteID);
-            } else {
-                modal.find('form')[0].reset();
-            }
-        });
-
-        function deleteCliente(id) {
-            if (confirm('¿Está seguro de que desea eliminar este cliente?')) {
-                // Simulando la eliminación de datos
-                alert('Cliente ' + id + ' eliminado');
-                location.reload();
-            }
-        }
-    </script>
 </body>
 </html>

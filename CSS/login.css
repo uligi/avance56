@@ -66,6 +66,16 @@ body {
     box-sizing: border-box;
 }
 
+.login-form input[type="text"].is-invalid, 
+.login-form input[type="password"].is-invalid {
+    border-color: #FFCCCB; /* Color amarillo rojizo */
+    box-shadow: 0 0 5px rgba(255, 204, 203, 0.5);
+}
+
+.invalid-feedback {
+    color: #FF4500; /* Rojo oscuro */
+}
+
 .login-form .link {
     color: #83B4FF;
     text-decoration: none;

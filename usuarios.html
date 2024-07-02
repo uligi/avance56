@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/usuarios.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -21,17 +21,19 @@
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Rol</th>
+                    <th>Cédula</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="usuarioTableBody">
                 <tr>
                     <td>1</td>
                     <td>Juan Pérez</td>
                     <td>juan.perez@example.com</td>
                     <td>Administrador</td>
+                    <td>12345678</td>
                     <td>
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="1">Editar</button>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="1">Editar</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteUsuario(1)">Eliminar</button>
                     </td>
                 </tr>
@@ -40,47 +42,122 @@
                     <td>María Gómez</td>
                     <td>maria.gomez@example.com</td>
                     <td>Empleado</td>
+                    <td>87654321</td>
                     <td>
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" data-id="2">Editar</button>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="2">Editar</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteUsuario(2)">Eliminar</button>
                     </td>
                 </tr>
                 <!-- Agrega más filas aquí según sea necesario -->
             </tbody>
         </table>
-        <button class="btn btn-success" data-toggle="modal" data-target="#editModal">Agregar Nuevo Usuario</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">Agregar Nuevo Usuario</button>
+
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Agregar Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addUsuarioForm" onsubmit="saveAddUsuario(event)">
+                            <div class="form-group">
+                                <label for="AddNombre">Nombre</label>
+                                <input type="text" class="form-control" id="AddNombre" name="Nombre" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="AddApellido1">Primer Apellido</label>
+                                <input type="text" class="form-control" id="AddApellido1" name="Apellido1" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="AddApellido2">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="AddApellido2" name="Apellido2" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="AddTelefono">Teléfono</label>
+                                <input type="text" class="form-control" id="AddTelefono" name="Telefono" pattern="\d{8,10}" title="El teléfono debe tener entre 8 y 10 dígitos" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="AddDireccion">Dirección</label>
+                                <input type="text" class="form-control" id="AddDireccion" name="Direccion" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="AddCorreo">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="AddCorreo" name="Correo" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="AddContrasena">Contraseña</label>
+                                <input type="password" class="form-control" id="AddContrasena" name="Contrasena" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula y un número" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="AddRolID">Rol</label>
+                                <select class="form-control" id="AddRolID" name="RolID" required>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Empleado</option>
+                                    <!-- Agrega más opciones aquí según sea necesario -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="AddCedula">Cédula</label>
+                                <input type="text" class="form-control" id="AddCedula" name="Cedula" pattern="\d{8,10}" title="La cédula debe tener entre 8 y 10 dígitos" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Agregar/Editar Usuario</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title" id="editModalLabel">Editar Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="usuarioForm">
-                            <input type="hidden" id="UsuarioID" name="UsuarioID" />
+                        <form id="editUsuarioForm" onsubmit="saveEditUsuario(event)">
+                            <input type="hidden" id="EditUsuarioID" name="UsuarioID" />
                             <div class="form-group">
-                                <label for="Nombre">Nombre</label>
-                                <input type="text" class="form-control" id="Nombre" name="Nombre" required />
+                                <label for="EditNombre">Nombre</label>
+                                <input type="text" class="form-control" id="EditNombre" name="Nombre" required />
                             </div>
                             <div class="form-group">
-                                <label for="Correo">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="Correo" name="Correo" required />
+                                <label for="EditApellido1">Primer Apellido</label>
+                                <input type="text" class="form-control" id="EditApellido1" name="Apellido1" required />
                             </div>
                             <div class="form-group">
-                                <label for="Contrasena">Contraseña</label>
-                                <input type="password" class="form-control" id="Contrasena" name="Contrasena" required />
+                                <label for="EditApellido2">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="EditApellido2" name="Apellido2" required />
                             </div>
                             <div class="form-group">
-                                <label for="RolID">Rol</label>
-                                <select class="form-control" id="RolID" name="RolID" required>
+                                <label for="EditTelefono">Teléfono</label>
+                                <input type="text" class="form-control" id="EditTelefono" name="Telefono" pattern="\d{8,10}" title="El teléfono debe tener entre 8 y 10 dígitos" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="EditDireccion">Dirección</label>
+                                <input type="text" class="form-control" id="EditDireccion" name="Direccion" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="EditCorreo">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="EditCorreo" name="Correo" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="EditContrasena">Contraseña</label>
+                                <input type="password" class="form-control" id="EditContrasena" name="Contrasena" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula y un número" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="EditRolID">Rol</label>
+                                <select class="form-control" id="EditRolID" name="RolID" required>
                                     <option value="1">Administrador</option>
                                     <option value="2">Empleado</option>
                                     <!-- Agrega más opciones aquí según sea necesario -->
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="EditCedula">Cédula</label>
+                                <input type="text" class="form-control" id="EditCedula" name="Cedula" pattern="\d{8,10}" title="La cédula debe tener entre 8 y 10 dígitos" required />
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
@@ -89,37 +166,6 @@
             </div>
         </div>
     </main>
-    <script>
-        $('#editModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var modal = $(this);
-            if (id) {
-                // Simulando la obtención de datos
-                var data = {
-                    UsuarioID: id,
-                    Nombre: id === 1 ? 'Juan Pérez' : 'María Gómez',
-                    Correo: id === 1 ? 'juan.perez@example.com' : 'maria.gomez@example.com',
-                    Contrasena: 'password', // Solo para la demostración
-                    RolID: id === 1 ? 1 : 2
-                };
-                modal.find('#UsuarioID').val(data.UsuarioID);
-                modal.find('#Nombre').val(data.Nombre);
-                modal.find('#Correo').val(data.Correo);
-                modal.find('#Contrasena').val(data.Contrasena);
-                modal.find('#RolID').val(data.RolID);
-            } else {
-                modal.find('form')[0].reset();
-            }
-        });
-
-        function deleteUsuario(id) {
-            if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
-                // Simulando la eliminación de datos
-                alert('Usuario ' + id + ' eliminado');
-                location.reload();
-            }
-        }
-    </script>
+    <script src="js/usuarios.js"></script>
 </body>
 </html>

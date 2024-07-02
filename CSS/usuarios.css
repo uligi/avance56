@@ -115,3 +115,24 @@ body {
     border-color: #83B4FF;
     box-shadow: 0 0 5px rgba(131, 180, 255, 0.5);
 }
+
+/* Estilos para el popup */
+#addModal .modal-dialog, #editModal .modal-dialog {
+    max-width: 600px;
+}
+
+#addModal .modal-content, #editModal .modal-content {
+    padding: 20px;
+}
+
+#addModal .form-group label, #editModal .form-group label {
+    font-weight: bold;
+}
+
+#addModal .form-control, #editModal .form-control {
+    margin-bottom: 10px;
+}
+
+#addModal .btn-primary, #editModal .btn-primary {
+    width: 100%;
+}

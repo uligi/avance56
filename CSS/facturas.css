@@ -115,3 +115,34 @@ body {
     border-color: #83B4FF;
     box-shadow: 0 0 5px rgba(131, 180, 255, 0.5);
 }
+
+/* Estilos para el popup */
+#editModal .modal-dialog {
+    max-width: 600px;
+}
+
+#editModal .modal-content {
+    padding: 20px;
+}
+
+#editModal .form-group label {
+    font-weight: bold;
+}
+
+#editModal .form-control {
+    margin-bottom: 10px;
+}
+
+#editModal .btn-primary {
+    width: 100%;
+}
+
+/* Estilos adicionales para validación */
+.form-control.is-invalid {
+    border-color: #FFCCCB; /* Color amarillo rojizo */
+    box-shadow: 0 0 5px rgba(255, 204, 203, 0.5);
+}
+
+.invalid-feedback {
+    color: #FF4500; /* Rojo oscuro */
+}
